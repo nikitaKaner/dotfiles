@@ -33,6 +33,7 @@ telescope.setup {
     file_browser = {
       -- disables netrw and use telescope-file-browser in its place
       hijack_netrw = true,
+      hidden = true,
       mappings = {
         ['i'] = {
           ['<C-n>'] = fb_actions.create, -- Create file
@@ -49,9 +50,11 @@ telescope.load_extension('file_browser')
 
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<leader>of',
-  '<Cmd>lua require("telescope").extensions.file_browser.file_browser({ path = "%:p:h", cwd = vim.fn.expand("%:p:h") })<CR>'
+  "<Cmd>lua require('telescope').extensions.file_browser.file_browser({ path = '%:p:h', cwd = vim.fn.expand('%:p:h') })<CR>"
   , opts)
-vim.keymap.set('n', '<leader>os', '<Cmd>Telescope find_files<CR>', opts)
+vim.keymap.set('n', '<leader>os',
+  "<Cmd>lua require'telescope.builtin'.find_files({ find_command = { 'rg', '--files', '--hidden', '-g', '!.git' }})<CR>"
+  , opts)
 vim.keymap.set('n', '<leader>og', '<Cmd>Telescope live_grep<CR>', opts)
 vim.keymap.set('n', '<leader>ob', '<Cmd>Telescope buffers<CR>', opts)
 vim.keymap.set('n', '<leader>oh', '<Cmd>Telescope help_tags<CR>', opts)
