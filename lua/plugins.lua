@@ -49,6 +49,7 @@ return require('packer').startup(function(use)
 
   -- LSP
   use 'neovim/nvim-lspconfig'
+  use 'jose-elias-alvarez/null-ls'
 
   -- Mason lsp servers installer
   use 'williamboman/mason.nvim'

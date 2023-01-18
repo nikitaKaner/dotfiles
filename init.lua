@@ -1,9 +1,9 @@
 require('base')
 require('plugins')
 require('keymaps')
--- require('colorscheme-solarized')
+require('colorscheme-solarized')
 -- require('colorscheme-onedark')
-require('colorscheme-gruvbox')
+-- require('colorscheme-gruvbox')
 
 -- TODO: Todo keyword highlight and search (maybe via telescope)
 -- TODO: Code actions - LSPSaga

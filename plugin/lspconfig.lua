@@ -4,11 +4,11 @@ if not status then
   return
 end
 
-local ts_status, typescript = pcall(require, 'typescript')
-if not ts_status then
-  print("Typescript.nvim is not installed!")
-  return
-end
+-- local ts_status, typescript = pcall(require, 'typescript')
+-- if not ts_status then
+--   print("Typescript.nvim is not installed!")
+--   return
+-- end
 
 local on_attach = function(client, bufnr)
   -- format on save
@@ -16,7 +16,7 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
       group = vim.api.nvim_create_augroup("Format", { clear = true }),
       buffer = bufnr,
-      callback = function() vim.lsp.buf.formatting_seq_sync() end
+      callback = function() vim.lsp.buf.format() end
     })
   end
 
@@ -24,6 +24,7 @@ local on_attach = function(client, bufnr)
 
   -- Keybindings
   vim.keymap.set("n", "gd", "<Cmd>Lspsaga peek_definition<CR>", opts)
+  vim.keymap.set("n", "<leader>hd", "<Cmd>Lspsaga hover_doc<CR>", opts)
   vim.keymap.set("n", "<leader>ca", "<Cmd>Lspsaga code_action<CR>", opts)
   vim.keymap.set("n", "<leader>rn", "<Cmd>Lspsaga rename<CR>", opts)
 
@@ -62,9 +63,15 @@ lspconfig['sumneko_lua'].setup {
 lspconfig['clangd'].setup {}
 
 -- Typescript
-typescript.setup {
-  server = {
-    capabilities = capabilities,
-    on_attach = on_attach,
-  }
+lspconfig['tsserver'].setup {
+  on_attach = on_attach,
+  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+  cmd = { "typescript-language-server", "--stdio" }
 }
+
+-- typescript.setup {
+--   server = {
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+--   }
+-- }
