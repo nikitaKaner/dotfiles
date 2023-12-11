@@ -13,6 +13,7 @@ ts.setup {
     'html',
     'css',
     'cpp',
+    'markdown',
   },
 
   highlight = {
